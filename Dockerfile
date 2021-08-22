@@ -6,4 +6,4 @@ run unzip rclone-current-linux-amd64.zip
 run cd rclone-*-linux-amd64 && cp rclone /usr/bin/ 
 run chown root:root /usr/bin/rclone 
 run chmod 755 /usr/bin/rclone
-rup apt-install fuse
+run apt-install fuse
