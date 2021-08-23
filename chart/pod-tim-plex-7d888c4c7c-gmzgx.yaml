@@ -1,0 +1,112 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: "2021-08-22T20:36:13Z"
+  generateName: tim-plex-7d888c4c7c-
+  labels:
+    app: plex
+    pod-template-hash: 7d888c4c7c
+  name: tim-plex-7d888c4c7c-gmzgx
+  namespace: default
+  ownerReferences:
+  - apiVersion: apps/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: ReplicaSet
+    name: tim-plex-7d888c4c7c
+    uid: 06c66570-71e2-4b37-a572-fda334270973
+  resourceVersion: "113654"
+  uid: 67e66f90-dc05-42b2-a5f9-f5746d44d508
+spec:
+  containers:
+  - env:
+    - name: ADVERTISE_IP
+      value: http://23.236.48.197:32400/
+    - name: PLEX_CLAIM
+      value: claim-UBDBz5PKqfDynvs76x8U
+    image: gcr.io/the-incredible-machine-276601/github.com/theincrediblemachine-dev/tim-plex:master
+    command: ["mkdir /config/Google;rclone mount -v --read-only --allow-other --gid 33 --umask 0027 --dir-cache-time 300h --poll-interval 5m GoogleMedia: /config/Google --config /config/rclone.cfg &;sh /plex_service.sh -u"]
+    imagePullPolicy: Always
+    name: plex
+    ports:
+    - containerPort: 32400
+      protocol: TCP
+    resources: {}
+    securityContext:
+      capabilities:
+        add:
+        - SYS_ADMIN
+      privileged: true
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /config
+      name: tim-plex-data
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: default-token-xlnss
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: gke-the-incredible-machi-default-pool-6904f5df-8ww8
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: tim-plex-data
+    persistentVolumeClaim:
+      claimName: tim-plex-data-claim
+  - name: default-token-xlnss
+    secret:
+      defaultMode: 420
+      secretName: default-token-xlnss
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2021-08-22T20:36:13Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2021-08-22T20:36:15Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2021-08-22T20:36:15Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2021-08-22T20:36:13Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: containerd://66b4caf828253433d9dad7dba833c7aefb6e266704ad43e0fdba3d56d8e1528c
+    image: gcr.io/the-incredible-machine-276601/github.com/theincrediblemachine-dev/tim-plex:master
+    imageID: gcr.io/the-incredible-machine-276601/github.com/theincrediblemachine-dev/tim-plex@sha256:947c165945783c3269b3a96b7ebcab9b718d48079216d21306f9727167f88610
+    lastState: {}
+    name: plex
+    ready: true
+    restartCount: 0
+    started: true
+    state:
+      running:
+        startedAt: "2021-08-22T20:36:14Z"
+  hostIP: 10.128.0.5
+  phase: Running
+  podIP: 10.56.0.64
+  podIPs:
+  - ip: 10.56.0.64
+  qosClass: BestEffort
+  startTime: "2021-08-22T20:36:13Z"

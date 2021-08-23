@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tim-plex
+  labels:
+    app: plex
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: plex
+  template:
+    metadata:
+      labels:
+        app: plex
+    spec:
+      volumes:
+      - name: tim-plex-data
+        persistentVolumeClaim:
+          claimName: tim-plex-data-claim
+      containers:
+      - name: plex
+        image: gcr.io/the-incredible-machine-276601/github.com/theincrediblemachine-dev/tim-plex:master
+        imagePullPolicy: Always
+        volumeMounts:
+        - mountPath: /config
+          name: tim-plex-data
+        ports:
+        - containerPort: 32400
+        env:
+        - name: ADVERTISE_IP
+          value: http://23.236.48.197:32400/
+        - name: PLEX_CLAIM
+          value: claim-UBDBz5PKqfDynvs76x8U
+        securityContext:
+          privileged: true
+          capabilities:
+            add:
+              - SYS_ADMIN
