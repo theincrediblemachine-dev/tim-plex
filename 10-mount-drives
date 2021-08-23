@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+mkdir /mnt/Google
+rclone mount -v --read-only --allow-other --gid 33 --umask 0027 --dir-cache-time 300h --poll-interval 5m GoogleMedia: /mnt/Google --config /config/rclone.cfg
