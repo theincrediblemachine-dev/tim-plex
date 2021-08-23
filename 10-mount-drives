@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 mkdir /mnt/Google
-rclone mount -v --read-only --allow-other --gid 33 --umask 0027 --dir-cache-time 300h --poll-interval 5m GoogleMedia: /mnt/Google --config /config/rclone.cfg &
+#rclone mount -v --read-only --allow-other --gid 33 --umask 0027 --dir-cache-time 300h --poll-interval 5m GoogleMedia: /mnt/Google --config /config/rclone.cfg &
+rclone mount --allow-other --dir-cache-time 48h --vfs-read-chunk-size 32M --vfs-read-chunk-size-limit 2G --buffer-size 512M --umask 002 --cache-dir=/mnt/user/rclone/vfs --vfs-cache-mode writes --log-level INFO --stats 1m GoogleMedia: /mnt/Google --config /config/rclone.cfg &
 echo "Mounting Drive"
 sleep 10
