@@ -1,0 +1,24 @@
+
+cat << EOF > /config/rclone.cfg
+[Google]
+type = drive
+scope = drive.readonly
+token = {"access_token":"ya29.a0ARrdaM_mUfwGan7q8U8acbYhUDDr3N4mpNjdDSyqQnMBLFkI4B-hzomgL-Kze7-mEQQVymoBq5rfDz5bHaCLVWx3xPJsIBJ93vOdsXUQm_JtZd6Wovj2as5Mly9rqNootzuHBF0Kows3C43EyfVVLMyVtUKe","token_type":"Bearer","refresh_token":"1//040129GzULfD7CgYIARAAGAQSNwF-L9IrWMDFmg4uoAOT5vcUjxM3TxkZxPI0aWyUBsUjAMzXrXM1YCyGFRMSv1_qH_CoYEA4Htc","expiry":"2021-08-22T18:05:30.538218194Z"}
+team_drive =
+
+[GoogleMedia]
+type = drive
+scope = drive.readonly
+token = {"access_token":"ya29.a0ARrdaM_Khmc5iiZ6w6C9GHylT9IyiY6isT7LeKSHnRaD-g0oGwv98ke08XAYXupd_dthQsPluZ6H4KlCkpL0V_3ZVAvTRTSwQ9CMTO-OgDNh720iMGX7ge5bLzBCTT43_ZYL0dph3iPa_N68IuC0wobZk8he","token_type":"Bearer","refresh_token":"1//04yUTYFS_vnp7CgYIARAAGAQSNwF-L9Ir6v5l9cm1Tiz9qTV_YSTUJGqRhumDp0NVsdvlS1W87_O4IOc9qbZ189p-OwfS5N3u8no","expiry":"2021-08-22T18:51:00.956756499Z"}
+team_drive =
+EOF
+
+mkdir /mnt/Google
+rclone mount Google: /mnt/Google --config /config/rclone.cfg
+
+
+ rclone mount -v --read-only --allow-other --gid 33 --umask 0027 --dir-cache-time 300h --poll-interval 5m GoogleMedia: /config/Google --config /config/rclone.cfg
+
+
+mkdir /config/Google
+rclone mount Google: /config/Google --config /config/rclone.cfg
