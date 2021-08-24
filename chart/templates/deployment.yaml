@@ -18,6 +18,8 @@ spec:
       - name: tim-plex-data
         persistentVolumeClaim:
           claimName: tim-plex-data-claim
+      - name: tim-plex-transcode
+        emptyDir: {}
       containers:
       - name: plex
         image: gcr.io/the-incredible-machine-276601/github.com/theincrediblemachine-dev/tim-plex:master
@@ -25,6 +27,8 @@ spec:
         volumeMounts:
         - mountPath: /config
           name: tim-plex-data
+        - mountPath: /transcode
+          name: tim-plex-transcode
         ports:
         - containerPort: 32400
         env:
