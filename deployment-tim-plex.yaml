@@ -1,0 +1,90 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+    meta.helm.sh/release-name: tim-plex
+    meta.helm.sh/release-namespace: default
+  creationTimestamp: "2021-08-24T00:57:11Z"
+  generation: 1
+  labels:
+    app: plex
+    app.kubernetes.io/managed-by: Helm
+  name: tim-plex
+  namespace: default
+  resourceVersion: "624898"
+  uid: 3cd268d8-818d-46f5-8048-4ceb7cb96729
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: plex
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: plex
+    spec:
+      containers:
+      - env:
+        - name: ADVERTISE_IP
+          value: http://23.236.48.197:32400/
+        - name: PLEX_CLAIM
+          value: claim-UBDBz5PKqfDynvs76x8U
+        - name: RCLONE_OPTIONS
+          value: --umask 000 --allow-non-empty --allow-other --fast-list --transfers 24 --dir-cache-time 72h --drive-chunk-size=32M --fuse-flag direct_io --cache-chunk-total-size 8G --cache-chunk-size 8M --cache-chunk-no-memory --cache-workers=24 --buffer-size=32M --vfs-cache-mode minimal --vfs-read-chunk-size 32M --vfs-cache-max-age 1h --vfs-read-chunk-size-limit off --cache-tmp-upload-path=/config/rclone_config
+        image: gcr.io/the-incredible-machine-276601/github.com/theincrediblemachine-dev/tim-plex:master
+        imagePullPolicy: Always
+        name: plex
+        ports:
+        - containerPort: 32400
+          protocol: TCP
+        resources: {}
+        securityContext:
+          capabilities:
+            add:
+            - SYS_ADMIN
+          privileged: true
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /config
+          name: tim-plex-data
+        - mountPath: /transcode
+          name: tim-plex-transcode
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: tim-plex-data
+        persistentVolumeClaim:
+          claimName: tim-plex-data-claim
+      - emptyDir: {}
+        name: tim-plex-transcode
+status:
+  conditions:
+  - lastTransitionTime: "2021-08-24T00:57:11Z"
+    lastUpdateTime: "2021-08-24T00:57:19Z"
+    message: ReplicaSet "tim-plex-57576db49d" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  - lastTransitionTime: "2021-08-24T01:03:18Z"
+    lastUpdateTime: "2021-08-24T01:03:18Z"
+    message: Deployment does not have minimum availability.
+    reason: MinimumReplicasUnavailable
+    status: "False"
+    type: Available
+  observedGeneration: 1
+  replicas: 1
+  unavailableReplicas: 1
+  updatedReplicas: 1
