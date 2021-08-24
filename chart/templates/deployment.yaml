@@ -36,6 +36,8 @@ spec:
           value: http://23.236.48.197:32400/
         - name: PLEX_CLAIM
           value: claim-UBDBz5PKqfDynvs76x8U
+        - name: RCLONE_OPTIONS
+          value: "--allow-other --attr-timeout 1000h --buffer-size 32M --dir-cache-time 1000h --poll-interval 15s --rc"
         securityContext:
           privileged: true
           capabilities:
