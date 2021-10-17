@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 mkdir /mnt/Google
-#mkdir /config/rclone_cache
-
-#rclone mount ${RCLONE_OPTIONS} GoogleMedia: /mnt/Google --config /config/rclone.cfg &
-#rclone mount --umask 000 --allow-non-empty --allow-other --fast-list --transfers 24 --dir-cache-time 72h --drive-chunk-size=32M --fuse-flag direct_io --cache-chunk-total-size 8G --cache-chunk-size 8M --cache-chunk-no-memory --cache-workers=24 --buffer-size=32M --vfs-cache-mode minimal --vfs-read-chunk-size 32M --vfs-cache-max-age 1h --vfs-read-chunk-size-limit off --cache-tmp-upload-path=/config/rclone_config GoogleMedia: /mnt/Google --config /config/rclone.cfg &
 rclone mount --umask 000 --allow-non-empty --allow-other --fast-list --transfers 24 --dir-cache-time 72h --drive-chunk-size=32M --cache-chunk-total-size 8G --cache-chunk-size 8M --cache-chunk-no-memory --cache-workers=24 --buffer-size=32M --vfs-cache-mode minimal --vfs-read-chunk-size 32M --vfs-cache-max-age 1h --vfs-read-chunk-size-limit off --cache-tmp-upload-path=/config/rclone_config GoogleMedia: /mnt/Google --config /config/rclone.cfg &
 echo "Mounting Drive"
 sleep 10
