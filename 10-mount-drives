@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 mkdir /mnt/Google
-rclone mount --umask 000 --allow-non-empty --allow-other --fast-list --transfers 24 --dir-cache-time 5000h --attr-timeout 5000h --drive-pacer-min-sleep 10ms --drive-pacer-burst 200 --poll-interval 10s --user-agent plex --vfs-cache-mode full --vfs-read-chunk-size 32M --vfs-cache-max-age 5000h --vfs-cache-max-size 500G --vfs-read-chunk-size-limit off --vfs-cache-poll-interval 5m --vfs-read-ahead 2G --bwlimit-file 32M --cache-dir=/rclone GoogleMedia: /mnt/Google --config /rclone/rclone.cfg &echo "Mounting Drive"
+rclone mount --umask 000 --allow-non-empty --allow-other --fast-list --transfers 24 --dir-cache-time 5000h --attr-timeout 5000h --drive-pacer-min-sleep 10ms --drive-pacer-burst 200 --poll-interval 10s --user-agent plex --vfs-cache-mode full --vfs-read-chunk-size 32M --vfs-cache-max-age 5000h --vfs-cache-max-size 2T --vfs-read-chunk-size-limit off --vfs-cache-poll-interval 5m --vfs-read-ahead 2G --bwlimit-file 32M --cache-dir=/rclone GoogleMedia: /mnt/Google --config /rclone/rclone.cfg &echo "Mounting Drive"
 sleep 10
